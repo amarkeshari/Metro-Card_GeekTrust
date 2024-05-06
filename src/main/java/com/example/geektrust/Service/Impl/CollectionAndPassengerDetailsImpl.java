@@ -5,17 +5,14 @@ import com.example.geektrust.Model.Journey;
 import com.example.geektrust.Model.MetroCard;
 import com.example.geektrust.Model.PassengerCount;
 import com.example.geektrust.Service.CollectionAndPassengerDetails;
+
 import java.util.*;
 
 public class CollectionAndPassengerDetailsImpl implements CollectionAndPassengerDetails {
-    Map<String,Integer> fairTypes;
 
-    public CollectionAndPassengerDetailsImpl() {
-        fairTypes= new HashMap<>();
-        fairTypes.put("KID",50);
-        fairTypes.put("ADULT",200);
-        fairTypes.put("SENIOR_CITIZEN",100);
-    }
+    private static final int KID_FAIR = 50;
+    private static final int ADULT_FAIR = 200;
+    private static final int SENIOR_CITIZEN = 100;
 
     public List<String> calculateCollection(List<MetroCard> metroCardList, List<Journey> journeyList) {
         List<Integer> collectedAmount = new ArrayList<>(List.of(0, 0));
@@ -28,7 +25,13 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
             List<Integer> ansList;
             MetroCard curMetroCard = null;
             int curFair, curDiscount;
-            fairAmount = fairTypes.get(curPassenger);
+            if (curPassenger.equals("KID")) {
+                fairAmount = KID_FAIR;
+            } else if (curPassenger.equals("ADULT")) {
+                fairAmount = ADULT_FAIR;
+            } else if (curPassenger.equals("SENIOR_CITIZEN")) {
+                fairAmount = SENIOR_CITIZEN;
+            }
             for (MetroCard metroCard : metroCardList) {
                 if (journey.getMetroCardId().equals(metroCard.getMetroCardID())) {
                     curMetroCard = metroCard;
@@ -51,6 +54,7 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
         return createResultList(collectedAmount, collectedDiscountAmount, passengerCountList);
     }
 
+
     public ArrayList<Integer> init(String passengerType, int fairAmount, MetroCard curMetroCard, PassengerCount passengerCount) {
         int ticketAmount, discountAmount = 0;
         if (curMetroCard.getPassengerCount(passengerType) > 0) {
@@ -70,15 +74,16 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
         List<String> ansList = new ArrayList<>();
         ansList.add("TOTAL_COLLECTION " + Destination.CENTRAL + " " + collectedAmount.get(0) + " " + collectedDiscountAmount.get(0));
         ansList.add("PASSENGER_TYPE_SUMMARY");
-        ansList = getPassengerCount(ansList, passengerCountList.get(0));
+        ansList = getPassenegrCount(ansList, passengerCountList.get(0));
         ansList.add("TOTAL_COLLECTION " + Destination.AIRPORT + " " + collectedAmount.get(1) + " " + collectedDiscountAmount.get(1));
         ansList.add("PASSENGER_TYPE_SUMMARY");
-        ansList = getPassengerCount(ansList, passengerCountList.get(1));
+        ansList = getPassenegrCount(ansList, passengerCountList.get(1));
         return ansList;
     }
 
-    public List<String> getPassengerCount(List<String> ansList, PassengerCount passengerCount) {
+    public List<String> getPassenegrCount(List<String> ansList, PassengerCount passengerCount) {
         HashMap<String, Integer> passengerMap = new HashMap<String, Integer>();
+
         if (passengerCount.getKidsCount() > 0) {
             passengerMap.put("KID", passengerCount.getKidsCount());
         }

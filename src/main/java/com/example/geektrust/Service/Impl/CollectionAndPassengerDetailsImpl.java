@@ -15,16 +15,16 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
     private static final int SENIOR_CITIZEN = 100;
 
     public List<String> calculateCollection(List<MetroCard> metroCardList, List<Journey> journeyList) {
-        List<Integer> collectedAmount = new ArrayList<>(List.of(0, 0));
+        List<Double> collectedAmount = new ArrayList<>(List.of(0.0, 0.0));
         List<Integer> collectedDiscountAmount = new ArrayList<>(List.of(0, 0));
         List<PassengerCount> passengerCountList = new ArrayList<>(List.of(new PassengerCount(), new PassengerCount()));
         for (Journey journey : journeyList) {
             String curPassenger = journey.getPassenger();
             Destination curDestination = journey.getDestination();
-            int fairAmount = 0;
+            int fairAmount = 0,curDiscount;
             List<Integer> ansList;
             MetroCard curMetroCard = null;
-            int curFair, curDiscount;
+            double curFair;
             if (curPassenger.equals("KID")) {
                 fairAmount = KID_FAIR;
             } else if (curPassenger.equals("ADULT")) {
@@ -69,7 +69,7 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
         return new ArrayList<>(List.of(ticketAmount, discountAmount));
     }
 
-    public List<String> createResultList(List<Integer> collectedAmount, List<Integer> collectedDiscountAmount,
+    public List<String> createResultList(List<Double> collectedAmount, List<Integer> collectedDiscountAmount,
                                          List<PassengerCount> passengerCountList) {
         List<String> ansList = new ArrayList<>();
         ansList.add("TOTAL_COLLECTION " + Destination.CENTRAL + " " + collectedAmount.get(0) + " " + collectedDiscountAmount.get(0));

@@ -61,14 +61,14 @@ public class MetroCard {
         }
     }
 
-    public int calculateAmount(int requiredAmount) {
-        int amount = 0;
+    public double calculateAmount(int requiredAmount) {
+        double amount = 0;
         if (isSufficientBalance(requiredAmount)) {
             this.currentBalance -= requiredAmount;
             amount += requiredAmount;
         } else {
             amount += requiredAmount;
-            amount += (int) ((requiredAmount - this.currentBalance) * 0.02);
+            amount += ((requiredAmount - this.currentBalance) * 0.02f);
             this.currentBalance = 0;
         }
         return amount;

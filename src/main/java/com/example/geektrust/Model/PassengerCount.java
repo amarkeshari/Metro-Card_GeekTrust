@@ -1,7 +1,5 @@
 package com.example.geektrust.Model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class PassengerCount {
     private int adultCount;

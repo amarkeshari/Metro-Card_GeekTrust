@@ -1,9 +1,7 @@
 package com.example.geektrust.Service.Impl;
 
-import com.example.geektrust.Model.Destination;
 import com.example.geektrust.Model.Journey;
 import com.example.geektrust.Model.MetroCard;
-import com.example.geektrust.Model.PassengerCount;
 import com.example.geektrust.Service.CollectionAndPassengerDetails;
 import com.example.geektrust.Service.MetroService;
 
@@ -16,9 +14,9 @@ import java.util.Scanner;
 
 public class MetroServiceImpl implements MetroService {
 
-    private List <MetroCard> metroCardList;
-    private List <Journey> journeyList;
-    private CollectionAndPassengerDetails collectionAndPassengerDetails;
+    private final List <MetroCard> metroCardList;
+    private final List <Journey> journeyList;
+    private final CollectionAndPassengerDetails collectionAndPassengerDetails;
 
     public MetroServiceImpl() {
         this.metroCardList=new ArrayList<>();
@@ -33,8 +31,8 @@ public class MetroServiceImpl implements MetroService {
 
     private void printResults(List <MetroCard> metroCardList,List <Journey> journeyList) {
         List <String> ansList= collectionAndPassengerDetails.calculateCollection(metroCardList,journeyList);
-        for(int i=0;i< ansList.size();i++) {
-            System.out.println(ansList.get(i)+" ");
+        for (String s : ansList) {
+            System.out.println(s + " ");
         }
     }
 

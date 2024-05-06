@@ -93,7 +93,17 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
             public int compare(Map.Entry<String, Integer> o1,
                                Map.Entry<String, Integer> o2)
             {
-                return 1-(o1.getValue()).compareTo(o2.getValue());
+                int val=0;
+                if((o1.getValue()).compareTo(o2.getValue())>0) {
+                    val=-1;
+                }
+                else if((o1.getValue()).compareTo(o2.getValue())<0) {
+                    val=1;
+                }
+                else if((o1.getKey().compareTo(o2.getKey())<0)) {
+                    val=-1;
+                }
+                return val;
             }
         });
         for (Map.Entry<String, Integer> aa : list) {

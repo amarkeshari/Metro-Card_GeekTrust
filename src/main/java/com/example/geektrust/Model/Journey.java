@@ -7,12 +7,11 @@ public class Journey {
 
     public Journey(String metroCardId, String passenger, String destination) {
         this.metroCardId = metroCardId;
-            this.passenger=passenger;
-        if(destination.equals("AIRPORT")) {
-            this.destination=Destination.AIRPORT;
-        }
-        else if(destination.equals("CENTRAL")) {
-            this.destination=Destination.CENTRAL;
+        this.passenger = passenger;
+        if (destination.equals("AIRPORT")) {
+            this.destination = Destination.AIRPORT;
+        } else if (destination.equals("CENTRAL")) {
+            this.destination = Destination.CENTRAL;
         }
     }
 

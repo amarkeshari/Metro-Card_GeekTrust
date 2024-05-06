@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CollectionAndPassengerDetails {
 
-    public List<String> calculateCollection(List <MetroCard> metroCardList, List <Journey> journeyList);
+    public List<String> calculateCollection(List<MetroCard> metroCardList, List<Journey> journeyList);
 }

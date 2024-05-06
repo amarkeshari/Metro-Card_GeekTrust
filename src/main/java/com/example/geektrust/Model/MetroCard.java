@@ -12,8 +12,8 @@ public class MetroCard {
     private int seniorCitizenCount;
 
     public MetroCard(String metroCardID, int currentBalance) {
-        this.metroCardID=metroCardID;
-        this.currentBalance=currentBalance;
+        this.metroCardID = metroCardID;
+        this.currentBalance = currentBalance;
         this.adultCount = 0;
         this.kidsCount = 0;
         this.seniorCitizenCount = 0;
@@ -27,34 +27,34 @@ public class MetroCard {
         int passengerCount;
         switch (passengerType) {
             case "KID":
-                passengerCount=kidsCount;
+                passengerCount = kidsCount;
                 break;
             case "ADULT":
-                passengerCount=adultCount;
+                passengerCount = adultCount;
                 break;
             case "SENIOR_CITIZEN":
-                passengerCount=seniorCitizenCount;
+                passengerCount = seniorCitizenCount;
                 break;
             default:
-                passengerCount=0;
+                passengerCount = 0;
                 break;
         }
         return passengerCount;
     }
 
-    public void changePassengerCount(String passengerType,int passengerNumber) {
+    public void changePassengerCount(String passengerType, int passengerNumber) {
         switch (passengerType) {
             case "KID":
-                kidsCount+=passengerNumber;
-                kidsCount=(Math.max(kidsCount, 0));
+                kidsCount += passengerNumber;
+                kidsCount = (Math.max(kidsCount, 0));
                 break;
             case "ADULT":
-                adultCount+=passengerNumber;
-                adultCount=(Math.max(adultCount, 0));
+                adultCount += passengerNumber;
+                adultCount = (Math.max(adultCount, 0));
                 break;
             case "SENIOR_CITIZEN":
-                seniorCitizenCount+=passengerNumber;
-                adultCount=(Math.max(adultCount, 0));
+                seniorCitizenCount += passengerNumber;
+                adultCount = (Math.max(adultCount, 0));
                 break;
             default:
                 break;
@@ -62,21 +62,20 @@ public class MetroCard {
     }
 
     public int calculateAmount(int requiredAmount) {
-        int amount=0;
-        if(isSufficientBalance(requiredAmount)) {
-            this.currentBalance-=requiredAmount;
-            amount+=requiredAmount;
-        }
-        else {
-            amount+=requiredAmount;
-            amount+= (int) ((requiredAmount-this.currentBalance)*0.02);
-            this.currentBalance=0;
+        int amount = 0;
+        if (isSufficientBalance(requiredAmount)) {
+            this.currentBalance -= requiredAmount;
+            amount += requiredAmount;
+        } else {
+            amount += requiredAmount;
+            amount += (int) ((requiredAmount - this.currentBalance) * 0.02);
+            this.currentBalance = 0;
         }
         return amount;
     }
 
     private boolean isSufficientBalance(int requiredAmount) {
-        if(this.currentBalance<requiredAmount) {
+        if (this.currentBalance < requiredAmount) {
             return false;
         }
         return true;

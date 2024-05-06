@@ -14,33 +14,33 @@ import java.util.Scanner;
 
 public class MetroServiceImpl implements MetroService {
 
-    private final List <MetroCard> metroCardList;
-    private final List <Journey> journeyList;
-    private final CollectionAndPassengerDetails collectionAndPassengerDetails;
+    private List<MetroCard> metroCardList;
+    private List<Journey> journeyList;
+    private CollectionAndPassengerDetails collectionAndPassengerDetails;
 
     public MetroServiceImpl() {
-        this.metroCardList=new ArrayList<>();
-        this.journeyList=new ArrayList<>();
-        this.collectionAndPassengerDetails=new CollectionAndPassengerDetailsImpl();
+        this.metroCardList = new ArrayList<>();
+        this.journeyList = new ArrayList<>();
+        this.collectionAndPassengerDetails = new CollectionAndPassengerDetailsImpl();
     }
 
     public void init(String path) {
         readLineByLine(path);
-        printResults(metroCardList,journeyList);
+        printResults(metroCardList, journeyList);
     }
 
-    private void printResults(List <MetroCard> metroCardList,List <Journey> journeyList) {
-        List <String> ansList= collectionAndPassengerDetails.calculateCollection(metroCardList,journeyList);
-        for (String s : ansList) {
-            System.out.println(s + " ");
+    private void printResults(List<MetroCard> metroCardList, List<Journey> journeyList) {
+        List<String> ansList = collectionAndPassengerDetails.calculateCollection(metroCardList, journeyList);
+        for (int i = 0; i < ansList.size(); i++) {
+            System.out.println(ansList.get(i) + " ");
         }
     }
 
-    public MetroCard createMetroCard(List <String> curList) {
-        return new MetroCard(curList.get(1),Integer.parseInt(curList.get(2)));
+    public MetroCard createMetroCard(List<String> curList) {
+        return new MetroCard(curList.get(1), Integer.parseInt(curList.get(2)));
     }
 
-    public Journey createJourney(List <String> curList) {
+    public Journey createJourney(List<String> curList) {
         return new Journey(curList.get(1), curList.get(2), curList.get(3));
     }
 
@@ -50,10 +50,9 @@ public class MetroServiceImpl implements MetroService {
             while (scanner.hasNextLine()) {
                 String curLine = scanner.nextLine();
                 List<String> curList = Arrays.asList(curLine.split("\\s+"));
-                if(curList.get(0).equals("BALANCE")) {
+                if (curList.get(0).equals("BALANCE")) {
                     metroCardList.add(createMetroCard(curList));
-                }
-                else if(curList.get(0).equals("CHECK_IN")) {
+                } else if (curList.get(0).equals("CHECK_IN")) {
                     journeyList.add(createJourney(curList));
                 }
             }

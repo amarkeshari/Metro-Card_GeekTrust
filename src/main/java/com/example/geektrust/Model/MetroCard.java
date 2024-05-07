@@ -32,7 +32,7 @@ public class MetroCard {
             amount += requiredAmount;
         } else {
             amount += requiredAmount;
-            amount += ((requiredAmount - this.currentBalance) * 0.02f);
+            amount += (int) ((requiredAmount - this.currentBalance) * 0.02);
             this.currentBalance = 0;
         }
         return amount;

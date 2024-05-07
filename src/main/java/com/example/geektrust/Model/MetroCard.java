@@ -1,7 +1,7 @@
 package com.example.geektrust.Model;
 
 public class MetroCard {
-    private String metroCardID;
+    private final String metroCardID;
 
     private int currentBalance;
 
@@ -10,7 +10,6 @@ public class MetroCard {
     public MetroCard(String metroCardID, int currentBalance) {
         this.metroCardID = metroCardID;
         this.currentBalance = currentBalance;
-        this.passengerCount = 0;
     }
 
     public String getMetroCardID() {
@@ -26,14 +25,14 @@ public class MetroCard {
     }
 
     public int calculateAmount(int requiredAmount) {
-        int amount = 0;
+        int amount = Constants.NUMBER_ZERO;
         if (isSufficientBalance(requiredAmount)) {
             this.currentBalance -= requiredAmount;
             amount += requiredAmount;
         } else {
             amount += requiredAmount;
-            amount += (int) ((requiredAmount - this.currentBalance) * 0.02);
-            this.currentBalance = 0;
+            amount += (int) ((requiredAmount - this.currentBalance) * Constants.percentage);
+            this.currentBalance = Constants.NUMBER_ZERO;
         }
         return amount;
     }

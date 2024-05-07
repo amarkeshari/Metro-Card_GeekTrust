@@ -24,13 +24,13 @@ public class PassengerCount {
     public void increasePassengerCount(PassengerType passengerType) {
         switch (passengerType) {
             case KID:
-                kidsCount += 1;
+                kidsCount += Constants.NUMBER_ONE;
                 break;
             case ADULT:
-                adultCount += 1;
+                adultCount += Constants.NUMBER_ONE;
                 break;
             case SENIOR_CITIZEN:
-                seniorCitizenCount += 1;
+                seniorCitizenCount += Constants.NUMBER_ONE;
                 break;
             default:
                 break;

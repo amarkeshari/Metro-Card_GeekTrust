@@ -1,5 +1,6 @@
 package com.example.geektrust.Service.Impl;
 
+import com.example.geektrust.Model.Constants;
 import com.example.geektrust.Model.Journey;
 import com.example.geektrust.Model.MetroCard;
 import com.example.geektrust.Service.CollectionAndPassengerDetails;
@@ -31,17 +32,17 @@ public class MetroServiceImpl implements MetroService {
 
     private void printResults(List<MetroCard> metroCardList, List<Journey> journeyList) {
         List<String> ansList = collectionAndPassengerDetails.calculateCollection(metroCardList, journeyList);
-        for (int i = 0; i < ansList.size(); i++) {
-            System.out.println(ansList.get(i) + " ");
+        for (String s : ansList) {
+            System.out.println(s + " ");
         }
     }
 
     public MetroCard createMetroCard(List<String> curList) {
-        return new MetroCard(curList.get(1), Integer.parseInt(curList.get(2)));
+        return new MetroCard(curList.get(Constants.NUMBER_ONE), Integer.parseInt(curList.get(Constants.NUMBER_TWO)));
     }
 
     public Journey createJourney(List<String> curList) {
-        return new Journey(curList.get(1), curList.get(2), curList.get(3));
+        return new Journey(curList.get(Constants.NUMBER_ONE), curList.get(Constants.NUMBER_TWO), curList.get(Constants.NUMBER_THREE));
     }
 
     private void readLineByLine(String path) {
@@ -50,9 +51,9 @@ public class MetroServiceImpl implements MetroService {
             while (scanner.hasNextLine()) {
                 String curLine = scanner.nextLine();
                 List<String> curList = Arrays.asList(curLine.split("\\s+"));
-                if (curList.get(0).equals("BALANCE")) {
+                if (curList.get(Constants.NUMBER_ZERO).equals("BALANCE")) {
                     metroCardList.add(createMetroCard(curList));
-                } else if (curList.get(0).equals("CHECK_IN")) {
+                } else if (curList.get(Constants.NUMBER_ZERO).equals("CHECK_IN")) {
                     journeyList.add(createJourney(curList));
                 }
             }

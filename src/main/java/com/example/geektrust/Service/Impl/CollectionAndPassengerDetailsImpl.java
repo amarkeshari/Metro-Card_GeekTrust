@@ -7,13 +7,9 @@ import java.util.*;
 
 public class CollectionAndPassengerDetailsImpl implements CollectionAndPassengerDetails {
 
-    private static final int KID_FAIR = 50;
-    private static final int ADULT_FAIR = 200;
-    private static final int SENIOR_CITIZEN = 100;
-
     public List<String> calculateCollection(List<MetroCard> metroCardList, List<Journey> journeyList) {
-        List<Integer> collectedAmount = Arrays.asList(0, 0);
-        List<Integer> collectedDiscountAmount = Arrays.asList(0, 0);
+        List<Integer> collectedAmount = Arrays.asList(Constants.NUMBER_ZERO, Constants.NUMBER_ZERO);
+        List<Integer> collectedDiscountAmount = Arrays.asList(Constants.NUMBER_ZERO, Constants.NUMBER_ZERO);
         List<PassengerCount> passengerCountList = Arrays.asList(new PassengerCount(), new PassengerCount());
         for (Journey journey : journeyList) {
             PassengerType curPassenger = journey.getPassenger();
@@ -28,17 +24,17 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
                 }
             }
             if (curDestination.equals(Destination.CENTRAL)) {
-                ansList = init(curPassenger, fairAmount, curMetroCard, passengerCountList.get(0));
-                curFair = curMetroCard.calculateAmount(ansList.get(0));
-                curDiscount = ansList.get(1);
-                collectedAmount.set(0, collectedAmount.get(0) + curFair);
-                collectedDiscountAmount.set(0, collectedDiscountAmount.get(0) + curDiscount);
+                ansList = init(curPassenger, fairAmount, curMetroCard, passengerCountList.get(Constants.NUMBER_ZERO));
+                curFair = curMetroCard.calculateAmount(ansList.get(Constants.NUMBER_ZERO));
+                curDiscount = ansList.get(Constants.NUMBER_ONE);
+                collectedAmount.set(Constants.NUMBER_ZERO, collectedAmount.get(Constants.NUMBER_ZERO) + curFair);
+                collectedDiscountAmount.set(Constants.NUMBER_ZERO, collectedDiscountAmount.get(Constants.NUMBER_ZERO) + curDiscount);
             } else if (curDestination.equals(Destination.AIRPORT)) {
-                ansList = init(curPassenger, fairAmount, curMetroCard, passengerCountList.get(1));
-                curFair = curMetroCard.calculateAmount(ansList.get(0));
-                curDiscount = ansList.get(1);
-                collectedAmount.set(1, collectedAmount.get(1) + curFair);
-                collectedDiscountAmount.set(1, collectedDiscountAmount.get(1) + curDiscount);
+                ansList = init(curPassenger, fairAmount, curMetroCard, passengerCountList.get(Constants.NUMBER_ONE));
+                curFair = curMetroCard.calculateAmount(ansList.get(Constants.NUMBER_ZERO));
+                curDiscount = ansList.get(Constants.NUMBER_ONE);
+                collectedAmount.set(Constants.NUMBER_ONE, collectedAmount.get(Constants.NUMBER_ONE) + curFair);
+                collectedDiscountAmount.set(Constants.NUMBER_ONE, collectedDiscountAmount.get(Constants.NUMBER_ONE) + curDiscount);
             }
         }
         return createResultList(collectedAmount, collectedDiscountAmount, passengerCountList);
@@ -46,14 +42,14 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
 
 
     public List<Integer> init(PassengerType passengerType, int fairAmount, MetroCard curMetroCard, PassengerCount passengerCount) {
-        int ticketAmount, discountAmount = 0;
-        if (curMetroCard.getPassengerCount() <= 0) {
+        int ticketAmount, discountAmount = Constants.NUMBER_ZERO;
+        if (curMetroCard.getPassengerCount() <= Constants.NUMBER_ZERO) {
             ticketAmount = fairAmount;
-            curMetroCard.changePassengerCount(1);
+            curMetroCard.changePassengerCount(Constants.NUMBER_ONE);
         } else {
-            ticketAmount = fairAmount / 2;
-            discountAmount = fairAmount / 2;
-            curMetroCard.changePassengerCount(-1);
+            ticketAmount = fairAmount / Constants.NUMBER_TWO;
+            discountAmount = fairAmount / Constants.NUMBER_TWO;
+            curMetroCard.changePassengerCount(-Constants.NUMBER_ONE);
         }
         passengerCount.increasePassengerCount(passengerType);
         return Arrays.asList(ticketAmount, discountAmount);
@@ -62,35 +58,35 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
     public List<String> createResultList(List<Integer> collectedAmount, List<Integer> collectedDiscountAmount,
                                          List<PassengerCount> passengerCountList) {
         List<String> ansList = new ArrayList<>();
-        ansList.add("TOTAL_COLLECTION " + Destination.CENTRAL + " " + collectedAmount.get(0) + " " + collectedDiscountAmount.get(0));
+        ansList.add("TOTAL_COLLECTION " + Destination.CENTRAL + " " + collectedAmount.get(Constants.NUMBER_ZERO) + " " + collectedDiscountAmount.get(Constants.NUMBER_ZERO));
         ansList.add("PASSENGER_TYPE_SUMMARY");
-        ansList = getPassenegrCount(ansList, passengerCountList.get(0));
-        ansList.add("TOTAL_COLLECTION " + Destination.AIRPORT + " " + collectedAmount.get(1) + " " + collectedDiscountAmount.get(1));
+        ansList = getPassenegrCount(ansList, passengerCountList.get(Constants.NUMBER_ZERO));
+        ansList.add("TOTAL_COLLECTION " + Destination.AIRPORT + " " + collectedAmount.get(Constants.NUMBER_ONE) + " " + collectedDiscountAmount.get(Constants.NUMBER_ONE));
         ansList.add("PASSENGER_TYPE_SUMMARY");
-        ansList = getPassenegrCount(ansList, passengerCountList.get(1));
+        ansList = getPassenegrCount(ansList, passengerCountList.get(Constants.NUMBER_ONE));
         return ansList;
     }
 
     public List<String> getPassenegrCount(List<String> ansList, PassengerCount passengerCount) {
         HashMap<String, Integer> passengerMap = new HashMap<>();
-        if (passengerCount.getKidsCount() > 0) {
+        if (passengerCount.getKidsCount() > Constants.NUMBER_ZERO) {
             passengerMap.put("KID", passengerCount.getKidsCount());
         }
-        if (passengerCount.getAdultCount() > 0) {
+        if (passengerCount.getAdultCount() > Constants.NUMBER_ZERO) {
             passengerMap.put("ADULT", passengerCount.getAdultCount());
         }
-        if (passengerCount.getSeniorCitizenCount() > 0) {
+        if (passengerCount.getSeniorCitizenCount() > Constants.NUMBER_ZERO) {
             passengerMap.put("SENIOR_CITIZEN", passengerCount.getSeniorCitizenCount());
         }
         List<Map.Entry<String, Integer> > list = new LinkedList<>(passengerMap.entrySet());
         list.sort((o1, o2) -> {
-            int val = 0;
-            if ((o1.getValue()).compareTo(o2.getValue()) > 0) {
-                val = -1;
-            } else if ((o1.getValue()).compareTo(o2.getValue()) < 0) {
-                val = 1;
-            } else if ((o1.getKey().compareTo(o2.getKey()) < 0)) {
-                val = -1;
+            int val = Constants.NUMBER_ZERO;
+            if ((o1.getValue()).compareTo(o2.getValue()) > Constants.NUMBER_ZERO) {
+                val = -Constants.NUMBER_ONE;
+            } else if ((o1.getValue()).compareTo(o2.getValue()) < Constants.NUMBER_ZERO) {
+                val = Constants.NUMBER_ONE;
+            } else if ((o1.getKey().compareTo(o2.getKey()) < Constants.NUMBER_ZERO)) {
+                val = -Constants.NUMBER_ONE;
             }
             return val;
         });

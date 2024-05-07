@@ -1,8 +1,8 @@
 package com.example.geektrust.Model;
 
 public class Journey {
-    private String metroCardId;
-    private PassengerType passengerType;
+    private final String metroCardId;
+    private final PassengerType passengerType;
     private Destination destination;
 
     public Journey(String metroCardId, String passengerType, String destination) {

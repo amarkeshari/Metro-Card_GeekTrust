@@ -15,9 +15,9 @@ import java.util.Scanner;
 
 public class MetroServiceImpl implements MetroService {
 
-    private List<MetroCard> metroCardList;
-    private List<Journey> journeyList;
-    private CollectionAndPassengerDetails collectionAndPassengerDetails;
+    private final List<MetroCard> metroCardList;
+    private final List<Journey> journeyList;
+    private final CollectionAndPassengerDetails collectionAndPassengerDetails;
 
     public MetroServiceImpl() {
         this.metroCardList = new ArrayList<>();

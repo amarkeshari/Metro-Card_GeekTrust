@@ -1,7 +1,5 @@
 package com.example.geektrust.Model;
 
-import com.example.geektrust.Model.PassengerType;
-
 public class PassengerCount {
     private int adultCount;
 

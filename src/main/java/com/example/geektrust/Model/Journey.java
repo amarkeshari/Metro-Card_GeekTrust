@@ -3,19 +3,25 @@ package com.example.geektrust.Model;
 public class Journey {
     private final String metroCardId;
     private final PassengerType passengerType;
-    private Destination destination;
+    private final Destination destination;
 
-    public Journey(String metroCardId, String passengerType, String destination) {
+    public Journey(String metroCardId, String passengerType, String destinationType) {
         this.metroCardId = metroCardId;
         this.passengerType = this.getPassengerType(passengerType);
-        if (destination.equals("AIRPORT")) {
-            this.destination = Destination.AIRPORT;
-        } else if (destination.equals("CENTRAL")) {
-            this.destination = Destination.CENTRAL;
-        }
+        this.destination=this.getDestinationType(destinationType);
     }
 
-    public PassengerType getPassengerType(String passenger) {
+    private Destination getDestinationType(String destinationType) {
+        Destination destination = null;
+        if (destinationType.equals("AIRPORT")) {
+            destination = Destination.AIRPORT;
+        } else if (destinationType.equals("CENTRAL")) {
+            destination = Destination.CENTRAL;
+        }
+        return destination;
+    }
+
+    private PassengerType getPassengerType(String passenger) {
         PassengerType passengerType = null;
         switch (passenger) {
             case "KID":

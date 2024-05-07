@@ -5,7 +5,7 @@ public enum PassengerType {
     KID(50),
     SENIOR_CITIZEN(100);
 
-    private int fairValue;
+    private final int fairValue;
 
     PassengerType(int fairValue) {
         this.fairValue=fairValue;

@@ -13,14 +13,33 @@ public class PrintSummaryImpl implements PrintSummary {
         List<String> ansList = new ArrayList<>();
         ansList.add("TOTAL_COLLECTION " + Destination.CENTRAL + " " + collectedAmount.get(Constants.NUMBER_ZERO) + " " + collectedDiscountAmount.get(Constants.NUMBER_ZERO));
         ansList.add("PASSENGER_TYPE_SUMMARY");
-        ansList = getPassenegrCount(ansList, passengerCountList.get(Constants.NUMBER_ZERO));
+        getPassengerCount(ansList, passengerCountList.get(Constants.NUMBER_ZERO));
         ansList.add("TOTAL_COLLECTION " + Destination.AIRPORT + " " + collectedAmount.get(Constants.NUMBER_ONE) + " " + collectedDiscountAmount.get(Constants.NUMBER_ONE));
         ansList.add("PASSENGER_TYPE_SUMMARY");
-        ansList = getPassenegrCount(ansList, passengerCountList.get(Constants.NUMBER_ONE));
+        getPassengerCount(ansList, passengerCountList.get(Constants.NUMBER_ONE));
         return ansList;
     }
 
-    private List<String> getPassenegrCount(List<String> ansList, PassengerCount passengerCount) {
+    private void getPassengerCount(List<String> ansList, PassengerCount passengerCount) {
+        List<Map.Entry<String, Integer>> list = getEntryList(passengerCount);
+        list.sort((o1, o2) -> {
+            int doSwap = Constants.NUMBER_ZERO;
+            if ((o1.getValue()).compareTo(o2.getValue()) > Constants.NUMBER_ZERO) {
+                doSwap = -Constants.NUMBER_ONE;
+            } else if ((o1.getValue()).compareTo(o2.getValue()) < Constants.NUMBER_ZERO) {
+                doSwap = Constants.NUMBER_ONE;
+            } else if ((o1.getKey().compareTo(o2.getKey()) < Constants.NUMBER_ZERO)) {
+                doSwap = -Constants.NUMBER_ONE;
+            }
+            return doSwap;
+        });
+        for (Map.Entry<String, Integer> aa : list) {
+            String curLine = aa.getKey()+" " + aa.getValue();
+            ansList.add(curLine);
+        }
+    }
+
+    private List<Map.Entry<String, Integer>> getEntryList(PassengerCount passengerCount) {
         HashMap<String, Integer> passengerMap = new HashMap<>();
         if (passengerCount.getKidsCount() > Constants.NUMBER_ZERO) {
             passengerMap.put("KID", passengerCount.getKidsCount());
@@ -31,22 +50,6 @@ public class PrintSummaryImpl implements PrintSummary {
         if (passengerCount.getSeniorCitizenCount() > Constants.NUMBER_ZERO) {
             passengerMap.put("SENIOR_CITIZEN", passengerCount.getSeniorCitizenCount());
         }
-        List<Map.Entry<String, Integer> > list = new LinkedList<>(passengerMap.entrySet());
-        list.sort((o1, o2) -> {
-            int val = Constants.NUMBER_ZERO;
-            if ((o1.getValue()).compareTo(o2.getValue()) > Constants.NUMBER_ZERO) {
-                val = -Constants.NUMBER_ONE;
-            } else if ((o1.getValue()).compareTo(o2.getValue()) < Constants.NUMBER_ZERO) {
-                val = Constants.NUMBER_ONE;
-            } else if ((o1.getKey().compareTo(o2.getKey()) < Constants.NUMBER_ZERO)) {
-                val = -Constants.NUMBER_ONE;
-            }
-            return val;
-        });
-        for (Map.Entry<String, Integer> aa : list) {
-            String curLine = aa.getKey()+" " + aa.getValue();
-            ansList.add(curLine);
-        }
-        return ansList;
+        return new LinkedList<>(passengerMap.entrySet());
     }
 }

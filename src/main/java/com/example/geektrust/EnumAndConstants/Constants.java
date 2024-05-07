@@ -1,4 +1,4 @@
-package com.example.geektrust.Model;
+package com.example.geektrust.EnumAndConstants;
 
 public class Constants {
     public static final int NUMBER_ZERO=0;

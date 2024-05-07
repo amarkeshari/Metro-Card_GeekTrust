@@ -1,4 +1,4 @@
-package com.example.geektrust.Model;
+package com.example.geektrust.EnumAndConstants;
 
 public enum PassengerType {
     ADULT(200),

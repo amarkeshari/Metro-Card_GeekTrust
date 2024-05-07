@@ -1,5 +1,8 @@
 package com.example.geektrust.Model;
 
+import com.example.geektrust.EnumAndConstants.Destination;
+import com.example.geektrust.EnumAndConstants.PassengerType;
+
 public class Journey {
     private final String metroCardId;
     private final PassengerType passengerType;

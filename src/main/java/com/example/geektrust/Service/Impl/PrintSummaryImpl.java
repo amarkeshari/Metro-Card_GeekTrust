@@ -1,7 +1,7 @@
 package com.example.geektrust.Service.Impl;
 
-import com.example.geektrust.Model.Constants;
-import com.example.geektrust.Model.Destination;
+import com.example.geektrust.EnumAndConstants.Constants;
+import com.example.geektrust.EnumAndConstants.Destination;
 import com.example.geektrust.Model.PassengerCount;
 import com.example.geektrust.Service.PrintSummary;
 

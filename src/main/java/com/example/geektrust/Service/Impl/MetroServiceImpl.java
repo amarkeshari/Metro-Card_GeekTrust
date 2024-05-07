@@ -1,6 +1,6 @@
 package com.example.geektrust.Service.Impl;
 
-import com.example.geektrust.Model.Constants;
+import com.example.geektrust.EnumAndConstants.Constants;
 import com.example.geektrust.Model.Journey;
 import com.example.geektrust.Model.MetroCard;
 import com.example.geektrust.Service.CollectionAndPassengerDetails;

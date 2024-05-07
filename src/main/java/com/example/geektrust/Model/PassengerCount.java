@@ -1,5 +1,8 @@
 package com.example.geektrust.Model;
 
+import com.example.geektrust.EnumAndConstants.Constants;
+import com.example.geektrust.EnumAndConstants.PassengerType;
+
 public class PassengerCount {
     private int adultCount;
 

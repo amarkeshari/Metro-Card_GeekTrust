@@ -5,64 +5,28 @@ public class MetroCard {
 
     private int currentBalance;
 
-    private int adultCount;
-
-    private int kidsCount;
-
-    private int seniorCitizenCount;
+    private int passengerCount;
 
     public MetroCard(String metroCardID, int currentBalance) {
         this.metroCardID = metroCardID;
         this.currentBalance = currentBalance;
-        this.adultCount = 0;
-        this.kidsCount = 0;
-        this.seniorCitizenCount = 0;
+        this.passengerCount = 0;
     }
 
     public String getMetroCardID() {
         return metroCardID;
     }
 
-    public int getPassengerCount(String passengerType) {
-        int passengerCount;
-        switch (passengerType) {
-            case "KID":
-                passengerCount = kidsCount;
-                break;
-            case "ADULT":
-                passengerCount = adultCount;
-                break;
-            case "SENIOR_CITIZEN":
-                passengerCount = seniorCitizenCount;
-                break;
-            default:
-                passengerCount = 0;
-                break;
-        }
+    public int getPassengerCount() {
         return passengerCount;
     }
 
-    public void changePassengerCount(String passengerType, int passengerNumber) {
-        switch (passengerType) {
-            case "KID":
-                kidsCount += passengerNumber;
-                kidsCount = (Math.max(kidsCount, 0));
-                break;
-            case "ADULT":
-                adultCount += passengerNumber;
-                adultCount = (Math.max(adultCount, 0));
-                break;
-            case "SENIOR_CITIZEN":
-                seniorCitizenCount += passengerNumber;
-                adultCount = (Math.max(adultCount, 0));
-                break;
-            default:
-                break;
-        }
+    public void changePassengerCount(int passengerNumber) {
+        this.passengerCount+=passengerNumber;
     }
 
-    public double calculateAmount(int requiredAmount) {
-        double amount = 0;
+    public int calculateAmount(int requiredAmount) {
+        int amount = 0;
         if (isSufficientBalance(requiredAmount)) {
             this.currentBalance -= requiredAmount;
             amount += requiredAmount;

@@ -1,5 +1,6 @@
 package com.example.geektrust.Model;
 
+import com.example.geektrust.Model.PassengerType;
 
 public class PassengerCount {
     private int adultCount;
@@ -20,15 +21,15 @@ public class PassengerCount {
         return seniorCitizenCount;
     }
 
-    public void increasePassengerCount(String passengerType) {
+    public void increasePassengerCount(PassengerType passengerType) {
         switch (passengerType) {
-            case "KID":
+            case KID:
                 kidsCount += 1;
                 break;
-            case "ADULT":
+            case ADULT:
                 adultCount += 1;
                 break;
-            case "SENIOR_CITIZEN":
+            case SENIOR_CITIZEN:
                 seniorCitizenCount += 1;
                 break;
             default:

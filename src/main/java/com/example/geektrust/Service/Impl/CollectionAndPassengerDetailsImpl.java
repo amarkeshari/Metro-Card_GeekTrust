@@ -1,9 +1,6 @@
 package com.example.geektrust.Service.Impl;
 
-import com.example.geektrust.Model.Destination;
-import com.example.geektrust.Model.Journey;
-import com.example.geektrust.Model.MetroCard;
-import com.example.geektrust.Model.PassengerCount;
+import com.example.geektrust.Model.*;
 import com.example.geektrust.Service.CollectionAndPassengerDetails;
 
 import java.util.*;
@@ -19,19 +16,12 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
         List<Integer> collectedDiscountAmount = Arrays.asList(0, 0);
         List<PassengerCount> passengerCountList = Arrays.asList(new PassengerCount(), new PassengerCount());
         for (Journey journey : journeyList) {
-            String curPassenger = journey.getPassenger();
+            PassengerType curPassenger = journey.getPassenger();
             Destination curDestination = journey.getDestination();
-            int fairAmount = 0;
+            int fairAmount = curPassenger.getFairValue();
             List<Integer> ansList;
             MetroCard curMetroCard = null;
             int curFair, curDiscount;
-            if (curPassenger.equals("KID")) {
-                fairAmount = KID_FAIR;
-            } else if (curPassenger.equals("ADULT")) {
-                fairAmount = ADULT_FAIR;
-            } else if (curPassenger.equals("SENIOR_CITIZEN")) {
-                fairAmount = SENIOR_CITIZEN;
-            }
             for (MetroCard metroCard : metroCardList) {
                 if (journey.getMetroCardId().equals(metroCard.getMetroCardID())) {
                     curMetroCard = metroCard;
@@ -55,7 +45,7 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
     }
 
 
-    public List<Integer> init(String passengerType, int fairAmount, MetroCard curMetroCard, PassengerCount passengerCount) {
+    public List<Integer> init(PassengerType passengerType, int fairAmount, MetroCard curMetroCard, PassengerCount passengerCount) {
         int ticketAmount, discountAmount = 0;
         if (curMetroCard.getPassengerCount() <= 0) {
             ticketAmount = fairAmount;

@@ -5,22 +5,19 @@ import com.example.geektrust.Model.Journey;
 import com.example.geektrust.Model.MetroCard;
 import com.example.geektrust.Model.PassengerCount;
 import com.example.geektrust.Service.CollectionAndPassengerDetails;
+
 import java.util.*;
 
 public class CollectionAndPassengerDetailsImpl implements CollectionAndPassengerDetails {
-    Map<String,Integer> fairTypes;
 
-    public CollectionAndPassengerDetailsImpl() {
-        fairTypes= new HashMap<>();
-        fairTypes.put("KID",50);
-        fairTypes.put("ADULT",200);
-        fairTypes.put("SENIOR_CITIZEN",100);
-    }
+    private static final int KID_FAIR = 50;
+    private static final int ADULT_FAIR = 200;
+    private static final int SENIOR_CITIZEN = 100;
 
     public List<String> calculateCollection(List<MetroCard> metroCardList, List<Journey> journeyList) {
-        List<Integer> collectedAmount = new ArrayList<>(List.of(0, 0));
-        List<Integer> collectedDiscountAmount = new ArrayList<>(List.of(0, 0));
-        List<PassengerCount> passengerCountList = new ArrayList<>(List.of(new PassengerCount(), new PassengerCount()));
+        List<Integer> collectedAmount = Arrays.asList(0, 0);
+        List<Integer> collectedDiscountAmount = Arrays.asList(0, 0);
+        List<PassengerCount> passengerCountList = Arrays.asList(new PassengerCount(), new PassengerCount());
         for (Journey journey : journeyList) {
             String curPassenger = journey.getPassenger();
             Destination curDestination = journey.getDestination();
@@ -28,7 +25,13 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
             List<Integer> ansList;
             MetroCard curMetroCard = null;
             int curFair, curDiscount;
-            fairAmount = fairTypes.get(curPassenger);
+            if (curPassenger.equals("KID")) {
+                fairAmount = KID_FAIR;
+            } else if (curPassenger.equals("ADULT")) {
+                fairAmount = ADULT_FAIR;
+            } else if (curPassenger.equals("SENIOR_CITIZEN")) {
+                fairAmount = SENIOR_CITIZEN;
+            }
             for (MetroCard metroCard : metroCardList) {
                 if (journey.getMetroCardId().equals(metroCard.getMetroCardID())) {
                     curMetroCard = metroCard;
@@ -51,18 +54,19 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
         return createResultList(collectedAmount, collectedDiscountAmount, passengerCountList);
     }
 
-    public ArrayList<Integer> init(String passengerType, int fairAmount, MetroCard curMetroCard, PassengerCount passengerCount) {
+
+    public List<Integer> init(String passengerType, int fairAmount, MetroCard curMetroCard, PassengerCount passengerCount) {
         int ticketAmount, discountAmount = 0;
-        if (curMetroCard.getPassengerCount() > 0) {
+        if (curMetroCard.getPassengerCount() <= 0) {
+            ticketAmount = fairAmount;
+            curMetroCard.changePassengerCount(1);
+        } else {
             ticketAmount = fairAmount / 2;
             discountAmount = fairAmount / 2;
             curMetroCard.changePassengerCount(-1);
-        } else {
-            ticketAmount = fairAmount;
-            curMetroCard.changePassengerCount( +1);
         }
         passengerCount.increasePassengerCount(passengerType);
-        return new ArrayList<>(List.of(ticketAmount, discountAmount));
+        return Arrays.asList(ticketAmount, discountAmount);
     }
 
     public List<String> createResultList(List<Integer> collectedAmount, List<Integer> collectedDiscountAmount,
@@ -70,15 +74,15 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
         List<String> ansList = new ArrayList<>();
         ansList.add("TOTAL_COLLECTION " + Destination.CENTRAL + " " + collectedAmount.get(0) + " " + collectedDiscountAmount.get(0));
         ansList.add("PASSENGER_TYPE_SUMMARY");
-        ansList = getPassengerCount(ansList, passengerCountList.get(0));
+        ansList = getPassenegrCount(ansList, passengerCountList.get(0));
         ansList.add("TOTAL_COLLECTION " + Destination.AIRPORT + " " + collectedAmount.get(1) + " " + collectedDiscountAmount.get(1));
         ansList.add("PASSENGER_TYPE_SUMMARY");
-        ansList = getPassengerCount(ansList, passengerCountList.get(1));
+        ansList = getPassenegrCount(ansList, passengerCountList.get(1));
         return ansList;
     }
 
-    public List<String> getPassengerCount(List<String> ansList, PassengerCount passengerCount) {
-        HashMap<String, Integer> passengerMap = new HashMap<String, Integer>();
+    public List<String> getPassenegrCount(List<String> ansList, PassengerCount passengerCount) {
+        HashMap<String, Integer> passengerMap = new HashMap<>();
         if (passengerCount.getKidsCount() > 0) {
             passengerMap.put("KID", passengerCount.getKidsCount());
         }
@@ -88,23 +92,17 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
         if (passengerCount.getSeniorCitizenCount() > 0) {
             passengerMap.put("SENIOR_CITIZEN", passengerCount.getSeniorCitizenCount());
         }
-        List<Map.Entry<String, Integer> > list = new LinkedList<Map.Entry<String, Integer> >(passengerMap.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
-            public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2)
-            {
-                int val=0;
-                if((o1.getValue()).compareTo(o2.getValue())>0) {
-                    val=-1;
-                }
-                else if((o1.getValue()).compareTo(o2.getValue())<0) {
-                    val=1;
-                }
-                else if((o1.getKey().compareTo(o2.getKey())<0)) {
-                    val=-1;
-                }
-                return val;
+        List<Map.Entry<String, Integer> > list = new LinkedList<>(passengerMap.entrySet());
+        list.sort((o1, o2) -> {
+            int val = 0;
+            if ((o1.getValue()).compareTo(o2.getValue()) > 0) {
+                val = -1;
+            } else if ((o1.getValue()).compareTo(o2.getValue()) < 0) {
+                val = 1;
+            } else if ((o1.getKey().compareTo(o2.getKey()) < 0)) {
+                val = -1;
             }
+            return val;
         });
         for (Map.Entry<String, Integer> aa : list) {
             String curLine = aa.getKey()+" " + aa.getValue();

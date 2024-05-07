@@ -18,11 +18,11 @@ public class MetroCard {
     }
 
     public int getPassengerCount() {
-        return passengerCount;
+        return this.passengerCount;
     }
 
-    public void changePassengerCount(int passengerNumber) {
-        this.passengerCount+=passengerNumber;
+    public void changePassengerCount(int passengerCount) {
+        this.passengerCount+=passengerCount;
     }
 
     public int calculateAmount(int requiredAmount) {

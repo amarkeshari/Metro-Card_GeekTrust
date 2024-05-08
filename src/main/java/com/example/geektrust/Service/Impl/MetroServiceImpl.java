@@ -25,7 +25,7 @@ public class MetroServiceImpl implements MetroService {
         this.collectionAndPassengerDetails = new CollectionAndPassengerDetailsImpl();
     }
 
-    public void init(String path) {
+    public void findCollectionAndDiscount(String path) {
         readLineByLine(path);
         printResults(metroCardList, journeyList);
     }

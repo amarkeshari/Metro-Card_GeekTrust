@@ -40,10 +40,7 @@ public class MetroCard {
     }
 
     private boolean isSufficientBalance(int requiredAmount) {
-        if (this.currentBalance < requiredAmount) {
-            return false;
-        }
-        return true;
+        return this.currentBalance >= requiredAmount;
     }
 
 }

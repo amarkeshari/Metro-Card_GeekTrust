@@ -1,5 +1,5 @@
 package com.example.geektrust.Service;
 
 public interface MetroService {
-    public void init(String path);
+    public void findCollectionAndDiscount(String path);
 }

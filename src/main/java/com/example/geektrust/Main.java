@@ -6,6 +6,6 @@ import com.example.geektrust.Service.MetroService;
 public class Main {
     public static void main(String[] args)  {
         MetroService metroService=new MetroServiceImpl();
-        metroService.init(args[0]);
+        metroService.findCollectionAndDiscount(args[0]);
 	}
 }

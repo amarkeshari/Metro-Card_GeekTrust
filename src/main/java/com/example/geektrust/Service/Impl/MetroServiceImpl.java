@@ -25,7 +25,7 @@ public class MetroServiceImpl implements MetroService {
         this.collectionAndPassengerDetails = new CollectionAndPassengerDetailsImpl();
     }
 
-    public void findCollectionAndDiscount(String path) {
+    public void findCollectionAndDiscount(String path) throws FileNotFoundException {
         readLineByLine(path);
         printResults(metroCardList, journeyList);
     }
@@ -45,7 +45,7 @@ public class MetroServiceImpl implements MetroService {
         return new Journey(curList.get(Constants.NUMBER_ONE), curList.get(Constants.NUMBER_TWO), curList.get(Constants.NUMBER_THREE));
     }
 
-    private void readLineByLine(String path) {
+    private void readLineByLine(String path) throws FileNotFoundException {
         try {
             Scanner scanner = new Scanner(new File(path));
             while (scanner.hasNextLine()) {
@@ -59,7 +59,7 @@ public class MetroServiceImpl implements MetroService {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new FileNotFoundException("File Not Found Exception");
         }
     }
 }

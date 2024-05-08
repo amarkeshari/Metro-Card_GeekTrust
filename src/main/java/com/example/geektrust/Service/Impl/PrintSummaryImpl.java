@@ -9,7 +9,7 @@ import java.util.*;
 
 public class PrintSummaryImpl implements PrintSummary {
     public List<String> createResultList(List<Integer> collectedAmount, List<Integer> collectedDiscountAmount,
-                                         List<PassengerCount> passengerCountList) {
+                                         List<PassengerCount> passengerCountList) throws IndexOutOfBoundsException{
         List<String> ansList = new ArrayList<>();
         ansList.add("TOTAL_COLLECTION " + Destination.CENTRAL + " " + collectedAmount.get(Constants.NUMBER_ZERO) + " " + collectedDiscountAmount.get(Constants.NUMBER_ZERO));
         ansList.add("PASSENGER_TYPE_SUMMARY");

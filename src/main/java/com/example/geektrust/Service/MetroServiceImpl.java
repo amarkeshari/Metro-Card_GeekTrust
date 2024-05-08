@@ -1,10 +1,8 @@
-package com.example.geektrust.Service.Impl;
+package com.example.geektrust.Service;
 
 import com.example.geektrust.EnumAndConstants.Constants;
 import com.example.geektrust.Model.Journey;
 import com.example.geektrust.Model.MetroCard;
-import com.example.geektrust.Service.CollectionAndPassengerDetails;
-import com.example.geektrust.Service.MetroService;
 
 import java.io.File;
 import java.io.FileNotFoundException;

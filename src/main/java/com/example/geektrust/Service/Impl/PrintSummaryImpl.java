@@ -1,4 +1,4 @@
-package com.example.geektrust.Service;
+package com.example.geektrust.Service.Impl;
 
 import com.example.geektrust.EnumAndConstants.Constants;
 import com.example.geektrust.EnumAndConstants.Destination;

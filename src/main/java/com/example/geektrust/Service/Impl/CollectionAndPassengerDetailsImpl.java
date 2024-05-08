@@ -1,9 +1,11 @@
-package com.example.geektrust.Service;
+package com.example.geektrust.Service.Impl;
 
 import com.example.geektrust.EnumAndConstants.Constants;
 import com.example.geektrust.EnumAndConstants.Destination;
 import com.example.geektrust.EnumAndConstants.PassengerType;
 import com.example.geektrust.Model.*;
+import com.example.geektrust.Service.CollectionAndPassengerDetails;
+import com.example.geektrust.Service.PrintSummary;
 
 import java.util.*;
 

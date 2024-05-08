@@ -17,7 +17,7 @@ public class CollectionAndPassengerDetailsImpl implements CollectionAndPassenger
         this.printSummary=new PrintSummaryImpl();
     }
 
-    public List<String> calculateCollection(List<MetroCard> metroCardList, List<Journey> journeyList) {
+    public List<String> calculateCollection(List<MetroCard> metroCardList, List<Journey> journeyList) throws IndexOutOfBoundsException{
         List<Integer> collectedAmount = Arrays.asList(Constants.NUMBER_ZERO, Constants.NUMBER_ZERO);
         List<Integer> collectedDiscountAmount = Arrays.asList(Constants.NUMBER_ZERO, Constants.NUMBER_ZERO);
         List<PassengerCount> passengerCountList = Arrays.asList(new PassengerCount(), new PassengerCount());
